@@ -1,17 +1,15 @@
+// src/app/shared/shared.module.ts
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-// Importa aquí tus componentes shared
-// import { LoaderComponent } from './loader/loader.component';
 
 @NgModule({
   declarations: [
-    // LoaderComponent
+    // Aquí van pipes o directivas que quieras compartir
   ],
-  imports: [
-    CommonModule
-  ],
+  imports: [CommonModule],
   exports: [
-    // LoaderComponent
+    CommonModule
+    // , AlgunaDirectivaPipeCompartida, etc.
   ]
 })
 export class SharedModule { }

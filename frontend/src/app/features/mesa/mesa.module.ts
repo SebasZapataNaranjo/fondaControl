@@ -1,11 +1,10 @@
+// src/app/features/mesa/mesa.module.ts
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
-
+import { MesaRoutingModule } from './mesa-routing.module';
 import { MesaListComponent } from './mesa-list/mesa-list.component';
 import { MesaDetailComponent } from './mesa-detail/mesa-detail.component';
-import { MesaRoutingModule } from './mesa-routing.module';
 
 @NgModule({
   declarations: [
@@ -15,12 +14,7 @@ import { MesaRoutingModule } from './mesa-routing.module';
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule,
     MesaRoutingModule
-  ],
-  exports: [
-    MesaListComponent,
-    MesaDetailComponent
   ]
 })
 export class MesaModule {}

@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+// src/app/features/auth/register/register.component.ts
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { UsuarioService, Usuario } from '../../../core/services/usuario.service';
-import { RolService, Rol } from '../../../core/services/rol.service';
 
 @Component({
   selector: 'app-register',
@@ -9,51 +8,27 @@ import { RolService, Rol } from '../../../core/services/rol.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent implements OnInit {
-  nombre = '';
-  contrasena = '';
-  confirmarContrasena = '';
-  codigoRol = '';
-  roles: Rol[] = [];
+export class RegisterComponent {
+  nombre: string = '';
+  role: string = 'mesero'; 
+  password: string = '';
+  confirmPassword: string = '';
 
-  constructor(
-    private usuarioService: UsuarioService,
-    private rolService: RolService,
-    private router: Router
-  ) {}
-
-  ngOnInit() {
-    this.rolService.getRoles().subscribe({
-      next: roles => this.roles = roles,
-      error: err => alert('Error al cargar roles: ' + (err.error?.message || err.message))
-    });
-  }
+  constructor(private router: Router) {}
 
   onRegister() {
-    if (!this.nombre || !this.contrasena || !this.codigoRol) {
+    if (!this.nombre || !this.password || !this.confirmPassword) {
       alert('Todos los campos son obligatorios');
       return;
     }
-    if (this.contrasena !== this.confirmarContrasena) {
+    if (this.password !== this.confirmPassword) {
       alert('Las contraseñas no coinciden');
       return;
     }
 
-    const usuario: Usuario = {
-      nombre: this.nombre,
-      contrasena: this.contrasena,
-      codigoRol: this.codigoRol
-    };
-
-    this.usuarioService.registrar(usuario).subscribe({
-      next: () => {
-        alert('Registro exitoso, ahora inicia sesión.');
-        this.router.navigate(['/login']);
-      },
-      error: err => {
-        alert('Error al registrar: ' + (err.error?.message || err.message));
-      }
-    });
+    // TODO: llamada real a tu API de registro (usuario.service.ts)
+    // Simulemos éxito y redirijamos a login:
+    this.router.navigate(['/login']);
   }
 
   goToLogin() {

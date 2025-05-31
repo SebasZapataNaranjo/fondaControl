@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+// src/app/features/auth/login/login.component.ts
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { UsuarioService, Usuario } from '../../../core/services/usuario.service';
-import { RolService, Rol } from '../../../core/services/rol.service';
 
 @Component({
   selector: 'app-login',
@@ -9,48 +8,21 @@ import { RolService, Rol } from '../../../core/services/rol.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
-  nombre = '';
-  contrasena = '';
-  codigoRol = '';
-  tipoUsuario = 'mesero'; // O 'administrador' según tu lógica
-  roles: Rol[] = [];
+export class LoginComponent {
+  username: string = '';
+  password: string = '';
 
-  constructor(
-    private usuarioService: UsuarioService,
-    private rolService: RolService,
-    private router: Router
-  ) {}
+  constructor(private router: Router) {}
 
-  ngOnInit() {
-    this.rolService.getRoles().subscribe({
-      next: roles => this.roles = roles,
-      error: err => alert('Error al cargar roles: ' + (err.error?.message || err.message))
-    });
-  }
-
-  onLogin() {
-    if (!this.nombre || !this.contrasena || !this.codigoRol) {
-      alert('Todos los campos son obligatorios');
-      return;
+  onSubmit() {
+    // TODO: Aquí iría la llamada real a tu API de login.
+    //       Para mostrar un flujo funcional, simulamos que siempre es válido:
+    if (this.username && this.password) {
+      // Por ejemplo: localStorage.setItem('token', '…');
+      this.router.navigate(['/usuarios']);
+    } else {
+      alert('Usuario y contraseña son obligatorios');
     }
-
-    const usuario: Usuario = {
-      nombre: this.nombre,
-      contrasena: this.contrasena,
-      codigoRol: this.codigoRol
-    };
-
-    this.usuarioService.iniciarSesion(usuario, this.tipoUsuario).subscribe({
-      next: () => {
-        localStorage.setItem('usuario', JSON.stringify(usuario));
-        alert('Bienvenido');
-        this.router.navigate(['/dashboard']); // Cambia a la ruta principal de tu app
-      },
-      error: err => {
-        alert('Error al iniciar sesión: ' + (err.error?.message || err.message));
-      }
-    });
   }
 
   goToRegister() {
